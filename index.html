@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cat SVG Effects Table</title>
+  <style>
+    /* Pure white everywhere */
+    html, body { background:#fff; margin:0; padding:0; }
+    body { font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans SC", sans-serif; color:#111; }
+
+    h1 { font-size: 1.4rem; text-align: center; margin: 24px 8px 8px; font-weight:700; letter-spacing:0.2px; }
+
+    /* Column headers */
+    .legend {
+      max-width: 980px;
+      margin: 0 auto 14px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* 10×5 grid */
+    .grid { 
+      max-width: 980px; 
+      margin: 0 auto 40px; 
+      display: grid; 
+      grid-template-columns: repeat(5, 1fr); 
+      gap: 12px; 
+    }
+
+    /* Cells stay white; thin outline for visibility on white bg */
+    .cell { 
+      background:#fff; 
+      padding: 8px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      outline: 1px solid #ddd; 
+      outline-offset: -1px;
+    }
+
+    /* SVG sizing & transform origin */
+    svg.icon { 
+      width: 96px; 
+      height: 96px; 
+      transform-origin: 50% 50%;
+      background:#fff; /* ensure white behind shapes */
+    }
+
+    /* Individual effects (no double effects) */
+    .mirror  { transform: scaleX(-1); }
+    .rotate  { transform: rotate(180deg); }
+    .squeeze { transform: scaleY(0.5); }
+    .gray    { filter: grayscale(100%); }
+  </style>
+</head>
+<body>
+  <h1>Cat SVG Effects Table</h1>
+
+  <!-- Column headers exactly as requested -->
+  <div class="legend" aria-hidden="true">
+    <div>Original</div>
+    <div>Mirrored</div>
+    <div>Rotated</div>
+    <div>Vertically Compressed</div>
+    <div>Grayscale</div>
+  </div>
+
+  <!-- Define 10 cute (not very symmetric) cat-themed icons -->
+  <svg width="0" height="0" style="position:absolute; left:-9999px; top:-9999px;" aria-hidden="true">
+    <defs>
+      <!-- 1. Cat face (wink + small bow on right) -->
+      <symbol id="icon-cat-face" viewBox="0 0 100 100">
+        <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+        <path d="M20 40 C20 20, 40 15, 50 25 C60 15, 80 20, 80 40 C82 60, 68 78, 50 80 C32 78, 18 60, 20 40Z" fill="#FFD1DC" stroke="#222" stroke-width="2"/>
+        <!-- ears -->
+        <polygon points="34,25 26,12 38,18" fill="#FFD1DC" stroke="#222" stroke-width="2"/>
+        <polygon points="66,25 78,11 74,24" fill="#FFD1DC" stroke="#222" stroke-width="2"/>
+        <!-- eyes: left open, right winking -->
+        <circle cx="40" cy="45" r="4" fill="#222"/>
+        <path d="M58 45 q6 0 10 -2" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- nose + mouth -->
+        <polygon points="50,50 47,53 53,53" fill="#FF7FA3" stroke="#222" stroke-width="1"/>
+        <path d="M47 54 q-6 4 -10 1" stroke="#222" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M53 54 q6 4 10 1"  stroke="#222" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- tiny bow on right cheek for asymmetry -->
+        <circle cx="72" cy="52" r="3.5" fill="#FF5B8A" stroke="#222" stroke-width="1"/>
+        <circle cx="77" cy="50" r="2.5" fill="#FF85A8" stroke="#222" stroke-width="1"/>
+      </symbol>
+
+      <!-- 2. Kitten side profile (tail to the right; ear angle differs) -->
+      <symbol id="icon-kitten-side" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <ellipse cx="45" cy="55" rx="20" ry="16" fill="#FFE8A3" stroke="#222" stroke-width="2"/>
+        <circle cx="35" cy="45" r="8" fill="#FFE8A3" stroke="#222" stroke-width="2"/>
+        <polygon points="31,39 28,31 36,36" fill="#FFE8A3" stroke="#222" stroke-width="2"/>
+        <!-- eye + nose -->
+        <circle cx="33" cy="44" r="2" fill="#222"/>
+        <circle cx="38" cy="47" r="1.3" fill="#FF7FA3" stroke="#222" stroke-width="0.8"/>
+        <!-- tail (to right) -->
+        <path d="M64 58 q10 -10 18 0 q-4 8 -12 5" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+        <!-- leg hint -->
+        <path d="M40 66 q4 3 8 0" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- 3. Paw print (off-center toe + tiny heart left) -->
+      <symbol id="icon-paw-heart" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <ellipse cx="52" cy="62" rx="12" ry="9" fill="#D7F0FF" stroke="#222" stroke-width="2"/>
+        <circle cx="38" cy="50" r="5.5" fill="#ACE4FF" stroke="#222" stroke-width="2"/>
+        <circle cx="52" cy="47" r="6"   fill="#ACE4FF" stroke="#222" stroke-width="2"/>
+        <circle cx="66" cy="50" r="5"   fill="#ACE4FF" stroke="#222" stroke-width="2"/>
+        <circle cx="58" cy="55" r="3.5" fill="#ACE4FF" stroke="#222" stroke-width="2"/>
+        <!-- tiny heart for asymmetry -->
+        <path d="M26 60 q-2 -3 1 -5 q2 -2 4 0 q2 -2 4 0 q3 2 1 5 q-2 4 -5 5 q-3 -1 -5 -5z" fill="#FF7FA3" stroke="#222" stroke-width="1"/>
+      </symbol>
+
+      <!-- 4. Fish skeleton (uneven tail fin, top fin only) -->
+      <symbol id="icon-fishbone" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <ellipse cx="28" cy="50" rx="10" ry="8" fill="#BDE3B0" stroke="#222" stroke-width="2"/>
+        <circle cx="25" cy="48" r="1.8" fill="#222"/>
+        <line x1="38" y1="50" x2="70" y2="50" stroke="#222" stroke-width="2.5"/>
+        <!-- ribs -->
+        <line x1="46" y1="44" x2="46" y2="56" stroke="#222" stroke-width="2"/>
+        <line x1="54" y1="43" x2="54" y2="57" stroke="#222" stroke-width="2"/>
+        <line x1="62" y1="45" x2="62" y2="55" stroke="#222" stroke-width="2"/>
+        <!-- tail (uneven) -->
+        <polygon points="70,50 86,43 82,50 86,57" fill="#BDE3B0" stroke="#222" stroke-width="2"/>
+        <!-- small top fin only for asymmetry -->
+        <path d="M44 40 q6 -6 12 -2" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- 5. Yarn ball (string trails right) -->
+      <symbol id="icon-yarn" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <circle cx="44" cy="54" r="16" fill="#F4C6FF" stroke="#222" stroke-width="2"/>
+        <!-- stripes -->
+        <path d="M30 58 q12 -8 28 -10" stroke="#222" stroke-width="1.5" fill="none"/>
+        <path d="M31 51 q14 -6 27 0"  stroke="#222" stroke-width="1.5" fill="none"/>
+        <path d="M33 63 q13 -4 25 -1" stroke="#222" stroke-width="1.5" fill="none"/>
+        <!-- trailing string (right only) -->
+        <path d="M58 56 q18 2 28 10 q6 6 -2 8 q-6 1 -10 -3" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- 6. Milk carton (cat logo slightly off-center) -->
+      <symbol id="icon-milk" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <polygon points="34,30 60,30 68,40 68,74 34,74" fill="#E6F3FF" stroke="#222" stroke-width="2"/>
+        <polygon points="34,30 42,22 66,22 60,30" fill="#BBDFFF" stroke="#222" stroke-width="2"/>
+        <!-- cat face logo offset a bit -->
+        <circle cx="50" cy="54" r="8" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <circle cx="47" cy="52" r="1.6" fill="#222"/>
+        <circle cx="53" cy="52" r="1.6" fill="#222"/>
+        <path d="M47 56 q3 3 6 0" stroke="#222" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <polygon points="44,50 46,46 48,50" fill="#fff" stroke="#222" stroke-width="1"/>
+        <polygon points="56,50 58,46 60,50" fill="#fff" stroke="#222" stroke-width="1"/>
+      </symbol>
+
+      <!-- 7. Sitting cat (tail curls to right; clipped ear) -->
+      <symbol id="icon-sitcat" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <ellipse cx="45" cy="58" rx="12" ry="16" fill="#FFDDB3" stroke="#222" stroke-width="2"/>
+        <circle cx="42" cy="40" r="7" fill="#FFDDB3" stroke="#222" stroke-width="2"/>
+        <!-- clipped ear -->
+        <polygon points="39,34 36,28 41,32" fill="#FFDDB3" stroke="#222" stroke-width="2"/>
+        <polygon points="46,33 50,27 49,33" fill="#FFDDB3" stroke="#222" stroke-width="2"/>
+        <!-- face -->
+        <circle cx="40" cy="40" r="1.6" fill="#222"/>
+        <circle cx="44" cy="40" r="1.2" fill="#222"/>
+        <circle cx="42" cy="42.5" r="1.2" fill="#FF7FA3" stroke="#222" stroke-width="0.7"/>
+        <!-- tail to right -->
+        <path d="M54 60 q14 -2 18 8 q-4 8 -14 4" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- 8. Cat bell (tag offset to right) -->
+      <symbol id="icon-bell" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <circle cx="50" cy="54" r="14" fill="#FFF2A8" stroke="#222" stroke-width="2"/>
+        <rect x="44" y="36" width="12" height="6" rx="2" fill="#FFF2A8" stroke="#222" stroke-width="2"/>
+        <circle cx="50" cy="58" r="3.5" fill="#222"/>
+        <!-- off-center tag -->
+        <line x1="58" y1="44" x2="66" y2="34" stroke="#222" stroke-width="2" />
+        <circle cx="66" cy="34" r="2.5" fill="#FF8FAB" stroke="#222" stroke-width="1"/>
+      </symbol>
+
+      <!-- 9. Mouse toy (ears sized slightly different) -->
+      <symbol id="icon-mouse-toy" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <ellipse cx="52" cy="56" rx="16" ry="10" fill="#CDE8FF" stroke="#222" stroke-width="2"/>
+        <circle cx="40" cy="50" r="5" fill="#CDE8FF" stroke="#222" stroke-width="2"/>
+        <circle cx="62" cy="49" r="4" fill="#CDE8FF" stroke="#222" stroke-width="2"/>
+        <circle cx="56" cy="55" r="1.6" fill="#222"/>
+        <!-- tail -->
+        <path d="M68 56 q16 4 18 12 q-2 4 -8 2" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- 10. Cat bowl (fish mark offset left) -->
+      <symbol id="icon-bowl" viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#fff"/>
+        <path d="M24 62 q26 10 52 0 l-4 10 q-22 6 -44 0 z" fill="#FFD1B3" stroke="#222" stroke-width="2"/>
+        <!-- fish mark -->
+        <ellipse cx="38" cy="64" rx="7" ry="3.5" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <polygon points="44,64 48,62 48,66" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <circle cx="35" cy="64" r="1.2" fill="#222"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Build 10 rows × 5 columns with 5 independent effects per icon -->
+  <script>
+    const rows = [
+      "icon-cat-face",
+      "icon-kitten-side",
+      "icon-paw-heart",
+      "icon-fishbone",
+      "icon-yarn",
+      "icon-milk",
+      "icon-sitcat",
+      "icon-bell",
+      "icon-mouse-toy",
+      "icon-bowl"
+    ];
+
+    function cell(symbolId, klass) {
+      const wrap = document.createElement('div');
+      wrap.className = 'cell';
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox','0 0 100 100');
+      svg.setAttribute('class', `icon ${klass||''}`.trim());
+      const use = document.createElementNS('http://www.w3.org/2000/svg','use');
+      use.setAttributeNS('http://www.w3.org/1999/xlink','href',`#${symbolId}`);
+      svg.appendChild(use);
+      wrap.appendChild(svg);
+      return wrap;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+
+      rows.forEach(id => {
+        grid.appendChild(cell(id, ''));           // Original
+        grid.appendChild(cell(id, 'mirror'));     // Mirrored (left-right)
+        grid.appendChild(cell(id, 'rotate'));     // Rotated 180°
+        grid.appendChild(cell(id, 'squeeze'));    // Vertically Compressed 50%
+        grid.appendChild(cell(id, 'gray'));       // Grayscale
+      });
+
+      document.body.appendChild(grid);
+    });
+  </script>
+</body>
+</html>
